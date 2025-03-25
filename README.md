@@ -1,110 +1,62 @@
 # Disease Hospital with System Programming
 
-Uses lists hashtables and avl trees to manage a hospital with patients.
-Can print results if a query is given.
+Uses lists, hashtables, and AVL trees to manage a hospital with patients.
+It can print results if a query is given.
+
+sdi1600278 Stevis Charalampos-Antonius
+System Programming Assignment 1
+
+After running `make`, the program can be executed with the following command:
+
+`./diseaseMonitor -p data.txt -h1 10 -h2 10 -b 16`
 
 
-sdi1600278 Στεβής Χαράλαμπος-Αντώνιος
-Προγραμματισμός Συστήματος Εργασία 1η.
+The file from which we run is `data.txt`.
+Note about the bucket size at the end of the README.
 
-Αφού γίνει make το πρόγραμμα τρέχει με τη εξής εντολή:
-./diseaseMonitor -p data.txt -h1 10 -h2 10 -b 16
-Το αρχείο από το οποίο τρέχουμε είναι το data.txt.
-Σημείωση για το bucketsize στο τέλος του readme.
+## Folder Structure:
+The folder contains the following:
 
-Παρακάτω περιγράφεται το πρόγραμμα, τι περιέχει και πώς λειτουργεί.
+- **Makefile**: For compilation
+- **SRC Folder**: Contains all `.c` files
+  - `avl.c`, `date.c`, `hash.c`, `list.c`, `main.c`, `patient.c`
+- **HEADERS Folder**: Contains all `.h` files
+  - `avl.h`, `date.h`, `hash.h`, `list.h`, `patient.h`
+- **BUILD Folder**: Contains all `.o` files after running `make` from the Makefile
+- **TXT Folder**: Contains the text file from which patient data is read
 
-Στον φάκελο περιέχονται τα εξής:
-Makefile - Για compile
-Φάκελος SRC - Περιέχει όλα τα .c αρχεία
-    avl.c/date.c/hash.c/list.c/main.c/patient.c
-Φάκελος HEADERS - Περιέχει όλα τα .h αρχεία
-    avl.h/date.h/hash.h/list.h/patient.h
-Φάκελος BUILD - Περιέχει όλα τα .ο αρχεία αφού εκτελεστεί το make, από το makefile
-Φάκελος TXT - Περιέχει το αρχείο κειμένου από το οποίο διαβάζονται οι ασθενείς
+## Description of Structures:
 
-Μιλώντας για κάθε δομή ξεχωριστά:
+### PATIENT (`patient.h` / `patient.c`)
+These files are responsible for reading a line from a file, initializing a patient, printing their data, and deleting the patient record.
 
-    PATIENT (patient.h/patient.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να διαβάζουν μια γραμμή από ένα αρχείο, να αρχικοποιούν ένα ασθενή, να τον εκτυπώνουν και να τον διαγράφουν.
+### LIST (`list.h` / `list.c`)
+These files handle the initialization, expansion, printing, and deletion of a list. There is also a feature to search for an element in the list (e.g., checking for duplicate `recordID`).
 
-    LIST (list.h/list.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να αρχικοποιούν μια λίστα, να την επεκτείνουν, να την εκτυπώνουν και να την διαγράφουν. Επίσης υπάρχει η δυνατότητα να ψάχνουμε αν υπάρχει ένα στοιχείο μέσα στην λίστα. Πχ χρησιμοποιείται για ελέγχους σε διπλότυπα recordID.
+### DATE (`date.h` / `date.c`)
+These files allow comparison between two dates. After accepting the dates, they split them and return the result based on the comparison:
+- Returns -1 if `exitDate` is earlier or if `date2 > date1`
+- Returns 1 if `date1 > date2`
+- Returns 0 if both dates are equal
 
-    DATE (date.h/date.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να συγκρίνουν δύο ημερομηνίες. Αφού τις δεχτούν, τις κομματιάζουν και κάνουν return ανάλογα με το αποτέλεσμα της σύγκρισης. Πιο συγκεκριμένα επιστρέφει -1 αν το exitDate είναι - ή αν το date2>date1, 1 αν date1>date2 και 0 αν date1=date2.
+### AVL (`avl.h` / `avl.c`)
+These files implement AVL trees. They handle initialization, printing, and deletion. Additionally, there are functions for inserting into the tree, inserting a node, creating new nodes, performing rotations to balance the tree, finding the height of the tree, and determining the number of nodes in the tree.
 
-    AVL (avl.h/alv.c)
-Τα αρχεία αυτά δημιουργούν avl δέντρα. Μπορούν να κάνουν αρχικοποίηση,εκτύπωση,διαγραφη. Επίσης έχουμε εισαγωγές σε δέντρο,εισαγωγή σε κόμβο και δημιουργία νέου κόμβου. Ακόμα έχουμε συναρτήσεις για rotates ώστε τα δέντρα να είναι ισοζυγισμένα, συνάρτηση που βρίσκει το ύψος του δέντρου, συνάρτηση που βρίσκει το μαξ δύο αριθμών(χρησιμοποιείται στο για το ύψος του δέντρου) και δύο συναρτήσεις για το πόσους κόμβους έχει ένα δέντρο.
+### HASH (`hash.h` / `hash.c`)
+These files manage hash tables. Each hash table consists of hash buckets, and within each bucket, there is a `bucketarray` structure. The files support the initialization, deletion, and printing of hash tables, hash buckets, and bucket arrays. There is also a hashing function used for indexing. New buckets are inserted when the previous one is full.
 
-    HASH (hash.h/hash.c)
-Τα αρχεία αυτά μπορούν να διαχειρίζονται hashtables. Κάθε hashtable αποτελείται από hashbuckets και μέσα σε κάθε hashbucket υπάρχει μια δομή bucketarray. Τα hashtables μπορούν να αρχικοποιηθούν,διαγραφούν,εκτυπωθούν. Τα hashbuckets μπορούν να αρχικοποιηθούν,εκτυπωθούν,διαγραφούν. Τα bucketarrays μπορούν να αρχικοποιηθούν,διαγραφούν,εκτυπωθούν. Υπάρχει hashfunction μέσω την οποία γίνεται to hashing. Οι εισαγωγές νέων buckets γίνονται αν ο προηγούμενος έχει γεμίσει
+### Queries:
+The following queries are available within this file:
+- **globalDiseaseStats**: Prints all patients for each disease. If dates are provided, it compares them and only prints the relevant results (this seems to work correctly).
+- **diseaseFrequency**: Prints patients with a specific disease (this does not work correctly).
+- **insertPatientRecord**: Creates a new patient and adds them to the list and both hash tables (`disease`, `country`) (this works correctly).
+- **recordPatientExit**: Changes the `exitDate` of a patient (this works somewhat correctly).
+- **numCurrentPatients**: Prints how many patients are still hospitalized (this does not work correctly).
 
-Μέσα σε αυτό το αρχείο περιέχονται και τα queries.
-Το globalDiseaseStats εκτυπώνει όλους τους ασθενείς σε κάθε ασθένεια. Αν δοθούν ημερομηνίες γίνονται οι κατάλληλες συγκρίσεις και εκτυπώνονται μόνο αυτά που πρέπει.(νομίζω λειτουργεί σωστά).
-Το diseaseFrequency εκτυπώνει του ασθενείς με μια συγκεκριμένη ασθένεια.(δεν λειτουργεί σωστά).
-Το insertPatientRecord δημιουργεί ένα ασθενεί και το προσθέτει στη λίστα, και στα δύο hashtables(disease,countr).(λειτουργεί σωστά.
-Το recordPatientExit που αλλάζει το exitDate ενός ασθενεί(λειτουργεί περίπου σωστά)
-Το numCurrentPatients που εκτυπώνει πόσοι ασθενείς νοσηλεύονται ακόμα.(δεν λειτουργεί σωστά).
+### MAIN (`main.c`)
+This file contains the main program. It opens and reads a file containing patient data (strings). It creates a list and two hash tables, storing the patients in both the list and the hash tables. Then, it enters a loop to process the input queries and calls the corresponding functions. Finally, it frees any allocated resources.
 
-    MAIN (main.c)
-Στο αρχείο αυτό τρέχει το κυρίως πρόγραμμα. Ανοίγει και διαβάζει ένα αρχείο με strings ασθενών. Δημιουργεί μία λίστα και δύο hashtables. Αποθηκεύει του ασθενείς στην λίστα και στα hashtables. Τρέχει μία λούπα για τα queries που δίνουμε στο input
-και ανάλογα καλούμε την κάθε εκδοχή τους. Τέλος ελευθερώνουμε ότι έχουν δεσμεύσει.
-
-Στην εργασία δεν περιέχεται υλοποίηση του heap καθώς και τα queries που το απαιτούν.
-To bucketsize που μπορεί να δοθεί είναι συγκεκριμένο και είναι 16. Αυτό συμβαίνει επειδή η δομή bucketarray είναι των 16 bits. Δοκίμασα και με πολλ/σια του 16 αλλά δεν μου έβγαινε σωστό.
-
-
-
-sdi1600278 Στεβής Χαράλαμπος-Αντώνιος
-Προγραμματισμός Συστήματος Εργασία 1η.
-
-Αφού γίνει make το πρόγραμμα τρέχει με τη εξής εντολή:
-./diseaseMonitor -p data.txt -h1 10 -h2 10 -b 16
-Το αρχείο από το οποίο τρέχουμε είναι το data.txt.
-Σημείωση για το bucketsize στο τέλος του readme.
-
-Παρακάτω περιγράφεται το πρόγραμμα, τι περιέχει και πώς λειτουργεί.
-
-Στον φάκελο περιέχονται τα εξής:
-Makefile - Για compile
-Φάκελος SRC - Περιέχει όλα τα .c αρχεία
-    avl.c/date.c/hash.c/list.c/main.c/patient.c
-Φάκελος HEADERS - Περιέχει όλα τα .h αρχεία
-    avl.h/date.h/hash.h/list.h/patient.h
-Φάκελος BUILD - Περιέχει όλα τα .ο αρχεία αφού εκτελεστεί το make, από το makefile
-Φάκελος TXT - Περιέχει το αρχείο κειμένου από το οποίο διαβάζονται οι ασθενείς
-
-Μιλώντας για κάθε δομή ξεχωριστά:
-
-    PATIENT (patient.h/patient.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να διαβάζουν μια γραμμή από ένα αρχείο, να αρχικοποιούν ένα ασθενή, να τον εκτυπώνουν και να τον διαγράφουν.
-
-    LIST (list.h/list.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να αρχικοποιούν μια λίστα, να την επεκτείνουν, να την εκτυπώνουν και να την διαγράφουν. Επίσης υπάρχει η δυνατότητα να ψάχνουμε αν υπάρχει ένα στοιχείο μέσα στην λίστα. Πχ χρησιμοποιείται για ελέγχους σε διπλότυπα recordID.
-
-    DATE (date.h/date.c)
-Τα αρχεία αυτά έχουν την δυνατότητα να συγκρίνουν δύο ημερομηνίες. Αφού τις δεχτούν, τις κομματιάζουν και κάνουν return ανάλογα με το αποτέλεσμα της σύγκρισης. Πιο συγκεκριμένα επιστρέφει -1 αν το exitDate είναι - ή αν το date2>date1, 1 αν date1>date2 και 0 αν date1=date2.
-
-    AVL (avl.h/alv.c)
-Τα αρχεία αυτά δημιουργούν avl δέντρα. Μπορούν να κάνουν αρχικοποίηση,εκτύπωση,διαγραφη. Επίσης έχουμε εισαγωγές σε δέντρο,εισαγωγή σε κόμβο και δημιουργία νέου κόμβου. Ακόμα έχουμε συναρτήσεις για rotates ώστε τα δέντρα να είναι ισοζυγισμένα, συνάρτηση που βρίσκει το ύψος του δέντρου, συνάρτηση που βρίσκει το μαξ δύο αριθμών(χρησιμοποιείται στο για το ύψος του δέντρου) και δύο συναρτήσεις για το πόσους κόμβους έχει ένα δέντρο.
-
-    HASH (hash.h/hash.c)
-Τα αρχεία αυτά μπορούν να διαχειρίζονται hashtables. Κάθε hashtable αποτελείται από hashbuckets και μέσα σε κάθε hashbucket υπάρχει μια δομή bucketarray. Τα hashtables μπορούν να αρχικοποιηθούν,διαγραφούν,εκτυπωθούν. Τα hashbuckets μπορούν να αρχικοποιηθούν,εκτυπωθούν,διαγραφούν. Τα bucketarrays μπορούν να αρχικοποιηθούν,διαγραφούν,εκτυπωθούν. Υπάρχει hashfunction μέσω την οποία γίνεται to hashing. Οι εισαγωγές νέων buckets γίνονται αν ο προηγούμενος έχει γεμίσει
-
-Μέσα σε αυτό το αρχείο περιέχονται και τα queries.
-Το globalDiseaseStats εκτυπώνει όλους τους ασθενείς σε κάθε ασθένεια. Αν δοθούν ημερομηνίες γίνονται οι κατάλληλες συγκρίσεις και εκτυπώνονται μόνο αυτά που πρέπει.(νομίζω λειτουργεί σωστά).
-Το diseaseFrequency εκτυπώνει του ασθενείς με μια συγκεκριμένη ασθένεια.(δεν λειτουργεί σωστά).
-Το insertPatientRecord δημιουργεί ένα ασθενεί και το προσθέτει στη λίστα, και στα δύο hashtables(disease,countr).(λειτουργεί σωστά.
-Το recordPatientExit που αλλάζει το exitDate ενός ασθενεί(λειτουργεί περίπου σωστά)
-Το numCurrentPatients που εκτυπώνει πόσοι ασθενείς νοσηλεύονται ακόμα.(δεν λειτουργεί σωστά).
-
-    MAIN (main.c)
-Στο αρχείο αυτό τρέχει το κυρίως πρόγραμμα. Ανοίγει και διαβάζει ένα αρχείο με strings ασθενών. Δημιουργεί μία λίστα και δύο hashtables. Αποθηκεύει του ασθενείς στην λίστα και στα hashtables. Τρέχει μία λούπα για τα queries που δίνουμε στο input
-και ανάλογα καλούμε την κάθε εκδοχή τους. Τέλος ελευθερώνουμε ότι έχουν δεσμεύσει.
-
-Στην εργασία δεν περιέχεται υλοποίηση του heap καθώς και τα queries που το απαιτούν.
-To bucketsize που μπορεί να δοθεί είναι συγκεκριμένο και είναι 16. Αυτό συμβαίνει επειδή η δομή bucketarray είναι των 16 bits. Δοκίμασα και με πολλ/σια του 16 αλλά δεν μου έβγαινε σωστό.
-
-
+### Missing Implementations:
+The assignment does not include an implementation of the heap and the queries that require it.
+The `bucketsize` provided is fixed at 16. This is because the `bucketarray` structure is 16 bits. I tried using multiples of 16, but it didn't work correctly.
 
